@@ -1,20 +1,25 @@
-pipeline{
-    agent any
-    stages{
-        stage('Hello'){
-            steps{
-                echo "Checking World"
-            }
-        }
-        stage('World'){
-            steps{
-                echo "Second Stage"
-            }
-        }
-        stage('Third'){
-            steps{
-                echo "New Stage"
-            }
-        }
+ tools {nodejs "node"}
+    
+  stages {
+        
+    stage('Git') {
+      steps {
+        git 'https://github.com/****/****'
+      }
     }
+     
+    stage('Build') {
+      steps {
+        sh 'npm install'
+         sh '<<Build Command>>'
+      }
+    }  
+    
+            
+    stage('Test') {
+      steps {
+        echo "Run test cases"
+      }
+    }
+  }
 }
