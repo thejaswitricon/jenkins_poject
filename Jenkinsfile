@@ -4,7 +4,7 @@
         
     stage('Git') {
       steps {
-        git 'https://github.com/****/****'
+        git 'https://github.com/thejaswitricon/jenkins_poject.git'
       }
     }
      
