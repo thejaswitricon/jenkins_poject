@@ -17,15 +17,15 @@ pipeline{
             }
         }
         stage('SonarQube analysis') {
-environment {
-scannerHome = tool 'SonarQubeScanner'
-}
-steps {
-withSonarQubeEnv('SonarQube') {
-sh "${scannerHome}/bin/sonar-scanner"
-}
-}
-}
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    bat "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
 
 
     }
