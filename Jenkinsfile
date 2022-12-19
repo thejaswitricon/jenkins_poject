@@ -6,10 +6,7 @@ environment {
      returnStdout: true
     )
 }
-tools {
-   maven 'maven'
-   jdk 'java'
-}
+
 stages {
   stage('Build project') {
     steps {
