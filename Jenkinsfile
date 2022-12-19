@@ -1,32 +1,44 @@
-pipeline{
-    agent any
-    stages{
-        stage('Hello'){
-            steps{
-                echo "Checking World"
-            }
-        }
-        stage('World'){
-            steps{
-                echo "Second Stage"
-            }
-        }
-        stage('Third'){
-            steps{
-                echo "New Stage"
-            }
-        }
-        stage('SonarQube analysis') {
-            environment {
-                scannerHome = tool 'SonarQube Scanner 2.8'
-            }
-            steps {
-                withSonarQubeEnv('SonarCube-token') {
-                    bat "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
-
-
+pipeline {
+agent any
+environment {
+   GIT_COMMIT_SHORT = sh(
+     script: "printf \$(git rev-parse --short ${GIT_COMMIT})",
+     returnStdout: true
+    )
+}
+tools {
+   maven 'maven'
+   jdk 'java'
+}
+stages {
+  stage('Build project') {
+    steps {
+      sh '''mvn install'''
     }
+  }
+  stage('SonarQube analysis') {
+    environment {
+      SCANNER_HOME = tool 'Sonar-scanner'
+    }
+    steps {
+    withSonarQubeEnv(credentialsId: 'sonar-credentialsId', installationName: 'Sonar') {
+         sh '''$SCANNER_HOME/bin/sonar-scanner \
+         -Dsonar.projectKey=projectKey \
+         -Dsonar.projectName=projectName \
+         -Dsonar.sources=src/ \
+         -Dsonar.java.binaries=target/classes/ \
+         -Dsonar.exclusions=src/test/java/****/*.java \
+         -Dsonar.java.libraries=/var/lib/jenkins/.m2/**/*.jar \
+         -Dsonar.projectVersion=${BUILD_NUMBER}-${GIT_COMMIT_SHORT}'''
+       }
+     }
+}
+   stage('SQuality Gate') {
+     steps {
+       timeout(time: 1, unit: 'MINUTES') {
+       waitForQualityGate abortPipeline: true
+       }
+  }
+}
+}
 }
