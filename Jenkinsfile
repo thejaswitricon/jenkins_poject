@@ -18,7 +18,7 @@ pipeline{
         }
         stage('SonarQube analysis') {
             environment {
-                scannerHome = tool 'SonarQube Scanner 2.8'
+                scannerHome = tool 'SonarQube-9.7.1'
             }
             steps {
                 withSonarQubeEnv('SonarCube-token') {
