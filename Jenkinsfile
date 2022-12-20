@@ -3,7 +3,7 @@ pipeline {
     stages {
          node {
                 stage('SCM') {
-                git 'https://github.com/foo/bar.git'
+                git 'https://github.com/thejaswitricon/jenkins_poject.git'
                 }
                 stage('SonarQube analysis') {
                   def scannerHome = tool 'SonarScanner 4.0';
