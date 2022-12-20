@@ -1,19 +1,16 @@
 pipeline {   
    agent any
     stages {
-         stage("build & SonarQube analysis") {
-              environment {
-                SCANNER_HOME = tool 'SonarQube'
-                PROJECT_NAME = "jenkins_project"
-            }
-            steps {
-                withSonarQubeEnv('sonarcloud') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner \
-                    //-Dsonar.organization=$ORGANIZATION \
-                    -Dsonar.projectKey=$PROJECT_NAME \
-                    -Dsonar.projectName=$PROJECT_NAME '''
+         node {
+                stage('SCM') {
+                git 'https://github.com/foo/bar.git'
                 }
+                stage('SonarQube analysis') {
+                  def scannerHome = tool 'SonarScanner 4.0';
+                  withSonarQubeEnv('My SonarQube Server') { // If you have configured more than one global server connection, you can specify its name
+                  sh "${scannerHome}/bin/sonar-scanner"
+                  }
+                }
+              }
             }
-          }
-        }
 }
