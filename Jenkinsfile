@@ -1,24 +1,16 @@
-pipeline {
-        agent any
-         environment {
-           scannerHome = tool 'Sonar-scanner'
-}
-        stages {
+pipeline {        
           stage('SonarCloud') {
             environment {
                 SCANNER_HOME = tool 'sonarcloud'
                 PROJECT_NAME = "Your Project name"
             }
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-//             steps {
-//               withSonarQubeEnv('My SonarQube Server') {
-//                 sh "${scannerHome}/bin/sonar-scanner"
-              }
+            steps {
+                withSonarQubeEnv('sonarcloud') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner \
+                    //-Dsonar.organization=$ORGANIZATION \
+                    -Dsonar.projectKey=$PROJECT_NAME \
+                    -Dsonar.projectName=$PROJECT_NAME '''
+                }
             }
-      }
+        }
+}
