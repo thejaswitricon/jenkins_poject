@@ -4,7 +4,7 @@ pipeline {
     stage('SonarCloud') {
               environment {
                   SCANNER_HOME = tool 'SonarQube scanner'
-                  PROJECT_NAME = "Your Project name"
+                  PROJECT_NAME = "jenkins_project"
               }
               steps {
                   withSonarQubeEnv('SonarQube scanner') {
