@@ -3,7 +3,7 @@ pipeline {
     stages {
          stage("build & SonarQube analysis") {
               environment {
-                SCANNER_HOME = tool 'sonarcloud'
+                SCANNER_HOME = tool 'SonarQube'
                 PROJECT_NAME = "jenkins_project"
             }
             steps {
