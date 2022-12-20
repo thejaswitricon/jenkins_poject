@@ -1,8 +1,9 @@
 pipeline {        
-          stage('SonarCloud') {
-            environment {
+    stages {
+         stage("build & SonarQube analysis") {
+              environment {
                 SCANNER_HOME = tool 'sonarcloud'
-                PROJECT_NAME = "Your Project name"
+                PROJECT_NAME = "jenkins_project"
             }
             steps {
                 withSonarQubeEnv('sonarcloud') {
@@ -12,5 +13,6 @@ pipeline {
                     -Dsonar.projectName=$PROJECT_NAME '''
                 }
             }
+          }
         }
 }
