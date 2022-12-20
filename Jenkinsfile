@@ -3,11 +3,11 @@ pipeline {
    stages{
     stage('SonarCloud') {
               environment {
-                  SCANNER_HOME = tool 'sonarcloud'
+                  SCANNER_HOME = tool 'SonarQube scanner'
                   PROJECT_NAME = "Your Project name"
               }
               steps {
-                  withSonarQubeEnv('sonarcloud') {
+                  withSonarQubeEnv('SonarQube scanner') {
                       sh '''$SCANNER_HOME/bin/sonar-scanner \
                       //-Dsonar.organization=$ORGANIZATION \
                       -Dsonar.projectKey=$PROJECT_NAME \
