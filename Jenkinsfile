@@ -4,13 +4,21 @@ pipeline {
            scannerHome = tool 'Sonar-scanner'
 }
         stages {
-          stage("build & SonarQube analysis") {
-           
-            steps {
-              withSonarQubeEnv('My SonarQube Server') {
-                sh "${scannerHome}/bin/sonar-scanner"
+          stage('SonarCloud') {
+            environment {
+                SCANNER_HOME = tool 'sonarcloud'
+                PROJECT_NAME = "Your Project name"
+            }
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+//             steps {
+//               withSonarQubeEnv('My SonarQube Server') {
+//                 sh "${scannerHome}/bin/sonar-scanner"
               }
             }
-          }
-        }
       }
