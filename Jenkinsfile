@@ -8,9 +8,7 @@ pipeline {
             SCANNER_HOME = tool 'sonarqube'
         }
         withSonarQubeEnv('SonarQube') {
-          bat '''$SCANNER_HOME/bin/sonar-scanner 
-          -Dsonar.projectKey=General_token \
-          -Dsonar.projectName=General_token '''
+          bat "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=General_token -Dsonar.login=squ_4f979a8514be7eba4d9a274adae1066e2c1372c2 "
         }
       }
     }
