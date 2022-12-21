@@ -7,7 +7,7 @@ pipeline {
           // requires SonarQube Scanner 2.8+
           def scannerHome = tool 'sonarqube';
         }
-        withSonarQubeEnv('SonarQube_OEPM') {
+        withSonarQubeEnv('SonarQube') {
           sh "${scannerHome}/bin/sonar-scanner"
         }
       }
