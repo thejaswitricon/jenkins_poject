@@ -5,10 +5,10 @@ pipeline {
       steps {
         script {
           // requires SonarQube Scanner 2.8+
-          SCANNER_HOME = tool 'sonarqube'
+          def scannerHome = tool 'sonarqube';
         }
-        withSonarQubeEnv('sonarqube') {
-          sh "$SCANNER_HOME/bin/sonar-scanner"
+        withSonarQubeEnv('SonarQube_OEPM') {
+          sh "${scannerHome}/bin/sonar-scanner"
         }
       }
     }
