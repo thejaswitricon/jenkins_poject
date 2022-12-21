@@ -8,7 +8,7 @@ pipeline {
             SCANNER_HOME = tool 'sonarqube'
         }
         withSonarQubeEnv('SonarQube') {
-          bat "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Sonar_Test -Dsonar.sources=. -Dsonar.login=squ_d77db063ea244abbf0cd9b82193ec06652f603da "
+          bat "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Sonar_Test -Dsonar.sources=. -Dsonar.login=squ_4f979a8514be7eba4d9a274adae1066e2c1372c2 "
         }
       }
     }
