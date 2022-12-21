@@ -1,21 +1,38 @@
-pipeline {   
-   agent any
-   stages{
-    stage('SonarCloud') {
-              environment {
-                  SCANNER_HOME = tool 'SonarQube scanner'
-                  PROJECT_NAME = "jenkins_project"
-              }
-              steps {
-                  withSonarQubeEnv('SonarQube scanner') {
-                      sh '''$SCANNER_HOME/bin/sonar-scanner \
-                      //-Dsonar.organization=$ORGANIZATION \
-                      -Dsonar.projectKey=$PROJECT_NAME \
-                      -Dsonar.projectName=$PROJECT_NAME '''
-                  }
-              }
-          }
-   }
+pipeline {
+  agent any
+  stages {
+    stage('SonarQube analysis') {
+      steps {
+        script {
+          // requires SonarQube Scanner 2.8+
+          scannerHome = tool 'SonarQube Scanner 2.8'
+        }
+        withSonarQubeEnv('SonarQube Scanner') {
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
+      }
+    }
+  }
+}
+
+// pipeline {   
+//    agent any
+//    stages{
+//     stage('SonarQube Analysis') {
+//               environment {
+//                   SCANNER_HOME = tool 'SonarQube scanner'
+//                   PROJECT_NAME = "jenkins_project"
+//               }
+//               steps {
+//                   withSonarQubeEnv('SonarQube scanner') {
+//                       sh '''$SCANNER_HOME/bin/sonar-scanner \
+//                       //-Dsonar.organization=$ORGANIZATION \
+//                       -Dsonar.projectKey=$PROJECT_NAME \
+//                       -Dsonar.projectName=$PROJECT_NAME '''
+//                   }
+//               }
+//           }
+//    }
    
     // stages {
     //      node {
@@ -30,4 +47,4 @@ pipeline {
     //             }
     //           }
     //         }
-}
+//}
