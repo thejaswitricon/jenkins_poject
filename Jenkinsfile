@@ -8,19 +8,7 @@ pipeline {
             }
         }
 
-    stage('Test') {
-      steps {
-        script {
-          bat 'npm run test'
-        }
-      }
-      post {
-        always {
-          step([$class: 'CoberturaPublisher', coberturaReportFile: 'output/coverage/jest/cobertura-coverage.xml'])
-        }
-      }
-    }
-
+   
     stage('SonarQube analysis') {
       steps {
         script {
