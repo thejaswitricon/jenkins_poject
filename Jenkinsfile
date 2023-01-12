@@ -8,7 +8,6 @@ pipeline {
             }
         }
 
-   
     stage('SonarQube analysis') {
       steps {
         script {
