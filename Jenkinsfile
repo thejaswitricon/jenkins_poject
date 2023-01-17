@@ -7,7 +7,6 @@ pipeline {
                 bat 'npm install' 
             }
         }
-        
     stage('SonarQube analysis') {
       steps {
         script {
